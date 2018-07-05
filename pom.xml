@@ -272,7 +272,7 @@
   </dependencies>
 
   <build>
-    
+
     <resources>
       <resource>
         <directory>src/main/resources</directory>
@@ -302,34 +302,7 @@
           <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
-
-      <plugin>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-codegen-plugin</artifactId>
-        <version>2.7.4</version>
-        <executions>
-          <execution>
-            <id>generate-sources</id>
-            <phase>generate-sources</phase>
-            <configuration>
-              <defaultOptions>
-                <frontEnd>jaxws21</frontEnd>
-                <noAddressBinding>true</noAddressBinding>
-              </defaultOptions>
-              <wsdlOptions>
-                <wsdlOption>
-                  <wsdl>classpath:/documentService.wsdl</wsdl>
-                </wsdlOption>
-              </wsdlOptions>
-            </configuration>
-            <goals>
-              <goal>wsdl2java</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>
+<plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
         <version>2.1.1</version>
