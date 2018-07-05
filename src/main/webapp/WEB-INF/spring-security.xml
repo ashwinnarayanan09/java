@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:aop="http://www.springframework.org/schema/aop"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xmlns:orcl="http://www.springframework.org/schema/data/orcl"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+                    http://www.springframework.org/schema/security
+                    http://www.springframework.org/schema/security/spring-security-3.2.xsd
+                    http://www.springframework.org/schema/context
+                    http://www.springframework.org/schema/context/spring-context-4.1.xsd
+                    http://www.springframework.org/schema/data/orcl
+                    http://www.springframework.org/schema/data/orcl/spring-data-orcl-1.0.xsd
+                    http://www.springframework.org/schema/aop
+                    http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <beans:beans profile="default">
+<http pattern="/css/**" security="none"/>
+        <http pattern="/images/**" security="none"/>
+        <http pattern="/fonts/**" security="none"/>
+        <http pattern="/js/**" security="none"/>
+        <http pattern="/templates/**" security="none"/>
+        <http pattern="/rest-api-docs/**" security="none"/>
+        <http pattern="/api-docs/**" security="none"/>
+
+        <http use-expressions="true">
+            <intercept-url pattern="/login" access='isAnonymous()' requires-channel='http' />
+            <intercept-url pattern="/" access='permitAll' requires-channel='http'/>
+            <intercept-url pattern='/**' access='isAuthenticated()' requires-channel='http'/>
+            <form-login login-page="/login.html"  />
+            <logout logout-url="/logout" logout-success-url="/" />
+        </http>
+
+
+        <authentication-manager>
+            <authentication-provider>
+                <user-service>
+                    <user name="user1" password="user1Pass" authorities="ROLE_USER" />
+                </user-service>
+            </authentication-provider>
+        </authentication-manager>
+
+    </beans:beans>
+</beans:beans>

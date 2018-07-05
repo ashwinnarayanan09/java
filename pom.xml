@@ -306,13 +306,7 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
         <version>2.1.1</version>
-        <configuration>
-          <webResources>
-            <resource>
-              <directory>target/client/dist</directory>
-            </resource>
-          </webResources>
-        </configuration>
+
       </plugin>
 
       <plugin>
@@ -347,86 +341,9 @@
             <version>7.0.37</version>
           </dependency>
         </dependencies>
-
-        <configuration>
-          <port>8097</port>
-          <path>/${project.artifactId}</path>
-          <charset>UTF-8</charset>
-          <uriEncoding>UTF-8</uriEncoding>
-          <username>admin</username>
-          <password>admin</password>
-          <warSourceDirectory>
-            ${project.build.directory}/${project.build.finalName}
-          </warSourceDirectory>
-          <contextReloadable>true</contextReloadable>
-
-          <!-- https config
-          <httpsPort>8443</httpsPort>
-          <keystoreFile>${basedir}/certificates/keystore</keystoreFile>
-          <keystorePass>prodcat</keystorePass>
-          -->
-        </configuration>
       </plugin>
 
     </plugins>
   </build>
-  <profiles>
-    <profile>
-      <id>frontend-tests</id>
 
-      <!-- run this profile except when tests are skipped -->
-      <activation>
-        <property>
-          <name>!maven.test.skip</name>
-        </property>
-      </activation>
-
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>com.github.eirslett</groupId>
-            <artifactId>frontend-maven-plugin</artifactId>
-            <version>1.6</version>
-            <configuration>
-              <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-            </configuration>
-            <executions>
-              <execution>
-                <id>install node and npm</id>
-                <phase>initialize</phase>
-                <goals>
-                  <goal>install-node-and-npm</goal>
-                </goals>
-                <configuration>
-                  <nodeVersion>v8.5.0</nodeVersion>
-                  <npmVersion>5.4.2</npmVersion>
-                </configuration>
-              </execution>
-              <execution>
-                <id>npm install</id>
-                <phase>initialize</phase>
-                <goals>
-                  <goal>npm</goal>
-                </goals>
-                <configuration>
-                  <arguments>install</arguments>
-                </configuration>
-              </execution>
-
-              <execution>
-                <id>grunt build</id>
-                <phase>generate-resources</phase>
-                <goals>
-                  <goal>grunt</goal>
-                </goals>
-                <configuration>
-                  <arguments>build</arguments>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 </project>
